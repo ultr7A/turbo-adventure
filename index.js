@@ -80,12 +80,12 @@ Options:
     if (!fs.existsSync(file_name)) {
         // template for the list of things to do
         const list_template = `# Plans
-        + [ ] Build..
-        +
++ [ ] Build..
++
 
-        # Events
-        + Read about...
-        +
+# Events
++ Read about...
++
 `;
 
         // template for llm prompt augmentation
