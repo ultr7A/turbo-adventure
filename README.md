@@ -1,5 +1,5 @@
 # turbo-adventure
-Sticking out your gyat for github copilot.
+Sticking out your gyatt for github copilot.
 
 
 ## usage
