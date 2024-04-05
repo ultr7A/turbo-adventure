@@ -17,6 +17,7 @@ Sticking out your gyat for github copilot.
 ## adventure differently
 ```bash
 export TURBO_ADVENTURE_EDITOR="nvim"
+export TURBO_ADVENTURE_JOURNAL_DIRECTORY="/home/super-kawaii/world" # if u want
 ```
 
 ## impress the rizzler with your organisational skillz
