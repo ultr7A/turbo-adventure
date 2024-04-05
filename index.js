@@ -27,7 +27,7 @@ if (!fs.existsSync(journal_directory)) {
 
 
 const args = process.argv.slice(2);
-console.log("args", args);
+
 if (args.length > 0) {
 
     switch (args[0]) {
@@ -79,7 +79,8 @@ Options:
     const file_name = make_file_name();
     if (!fs.existsSync(file_name)) {
         // template for the list of things to do
-        const list_template = `# Plans
+        const list_template = `# Today
+# Plans
 + [ ] Build..
 +
 
@@ -138,7 +139,8 @@ building a following, and will help to build a portfolio.
                 const parts = file_contents.split('# Plans');
                 
                 if (parts.length > 1) {
-                    return '# Plans' + parts[1];
+                
+                    return '# Plans' + parts[parts.length - 1];
                 }
             }
 
@@ -146,8 +148,6 @@ building a following, and will help to build a portfolio.
         }
 
         const previousEntry = getLastJournalEntry();
-        
-        console.log('previousEntry', previousEntry);
 
         // prompt for copilot llm, to initialise each journal entry, providing better auto completions
         const template = initJournalEntry(previousEntry);
