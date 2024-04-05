@@ -6,7 +6,7 @@ const fs = require('fs');
 
 function make_file_name(n_days_ago = 0) {
     const date = new Date();
-    const year = date.getFullYear().toString().slice(-2);
+    const year = date.getFullYear().toString();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = (date.getDate() - n_days_ago).toString().padStart(2, '0');
 
@@ -96,7 +96,7 @@ Ideally these excursions will be interesting enough to post on social media,
 building a following, and will help to build a portfolio.
 `;
 
-        function createTemplate() { 
+        function initJournalEntry(previousEntry) { 
     
             // check if journal_directory/year.md exists, and if not, create it
             const date = new Date();
@@ -106,7 +106,6 @@ building a following, and will help to build a portfolio.
         
             // read base prompt from year.md file
             const base_prompt = fs.readFileSync(year_file_name, 'utf8');
-        
         
             // check if journal_directory/year_month.md exists, and if not, create it
             const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -119,23 +118,50 @@ building a following, and will help to build a portfolio.
         
             return `${ base_prompt  || base_prompt_template }
 `
-        
                 +  `${ month_prompt || '' }
 `
+                +   (
+                        previousEntry 
+                        ? '# Yesterday:\n' + previousEntry + '\n\n'
+                        : ''
+                    )
 
                 +   list_template;
         }
-    
+
+        // read previous journal and grab the part after # Plans
+        function getLastJournalEntry() {
+            const file_name = make_file_name(1);
+        
+            if (fs.existsSync(file_name)) {
+                const file_contents = fs.readFileSync(file_name, 'utf8');
+                const parts = file_contents.split('# Plans');
+                
+                if (parts.length > 1) {
+                    return '# Plans' + parts[1];
+                }
+            }
+
+            return '';
+        }
+
+        const previousEntry = getLastJournalEntry();
+        
+        console.log('previousEntry', previousEntry);
+
         // prompt for copilot llm, to initialise each journal entry, providing better auto completions
-        const template = createTemplate();
+        const template = initJournalEntry(previousEntry);
         // write the system prompt to the file
         fs.writeFileSync(file_name, template);
     }
 
+
+
+
     // open today's turbo adventure in the editor
     const child_process = require('child_process');
     child_process.spawnSync(editor, [file_name], { stdio: 'inherit' });
-
+    
 }
 
 
