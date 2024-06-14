@@ -11,7 +11,7 @@ Sticking out your gyatt for github copilot.
 
 ./index.js --cat # prints the current journal
 
-./index.js --cat 1 # 
+./index.js --cat 1 # prints journal 1 day(s) ago
 ```
 
 ## adventure differently
