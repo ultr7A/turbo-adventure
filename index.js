@@ -1,4 +1,5 @@
 #!/usr/bin/node
+
 const fs = require('fs');
 
 
@@ -73,7 +74,7 @@ Options:
 
     
     // read the editor from env variable, defaulting to vi
-    const editor = process.env.TURBO_ADVENTURE_EDITOR || 'vi';
+    const editor = process.env.TURBO_ADVENTURE_EDITOR || 'code';
 
     // check if the file exists already, and show a warning if it does
     const file_name = make_file_name();
@@ -126,8 +127,7 @@ building a following, and will help to build a portfolio.
                         ? '# Yesterday:\n' + previousEntry + '\n\n'
                         : ''
                     )
-
-                +   list_template;
+                +   list_template
         }
 
         // read previous journal and grab the part after # Plans
